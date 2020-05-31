@@ -6,11 +6,10 @@ export interface IndexDetails {
   indexName: string;
   order: string;
 }
-const indexedDB: IDBFactory = if (typeof window !== "undefined") {
-  window.indexedDB || (<any>window).mozIndexedDB || (<any>window).webkitIndexedDB || (<any>window).msIndexedDB;
-} else {
-  null
-}
+
+const indexedDB: IDBFactory = typeof window !== "undefined"?
+  window.indexedDB || (<any>window).mozIndexedDB || (<any>window).webkitIndexedDB || (<any>window).msIndexedDB
+  : null
 
 export function openDatabase(dbName: string, version: number, upgradeCallback?: Function) {
   return new Promise<IDBDatabase>((resolve, reject) => {
